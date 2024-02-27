@@ -4,13 +4,21 @@ import org.springframework.util.Assert;
 
 public class Robot {
 
-    private Coordinate position = new Coordinate(0, 0);
+    private Coordinate position;
+
+    public Robot() {
+        this(new Coordinate(0, 0));
+    }
+
+    public Robot(Coordinate coordinate) {
+        this.position = coordinate;
+    }
 
     public Coordinate getPosition() {
         return position;
     }
 
-    public Coordinate move(final Direction direction, int steps) {
+    public Coordinate move(final Direction direction, final int steps) {
         Assert.isTrue(steps > 0, "Steps need to be positive!");
 
         final var newPosition = switch (direction) {

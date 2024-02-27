@@ -7,19 +7,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RobotTest {
 
-    @Test
-    public void initialPosition() {
-        final var robot = new Robot();
+    private final Robot robot = new Robot();
 
+    @Test
+    public void defaultInitialPosition() {
         final var currentPosition = robot.getPosition();
 
         assertThat(currentPosition).isEqualTo(new Coordinate(0, 0));
     }
 
     @Test
-    public void cannotMoveNegativeSteps() {
-        final var robot = new Robot();
+    public void customInitialPosition() {
+        final var robot = new Robot(new Coordinate(-1, 0));
+        final var currentPosition = robot.getPosition();
 
+        assertThat(currentPosition).isEqualTo(new Coordinate(-1, 0));
+    }
+
+    @Test
+    public void cannotMoveNegativeSteps() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> robot.move(Direction.NORTH, 0));
         Assertions.assertThrows(IllegalArgumentException.class, () -> robot.move(Direction.NORTH, -1));
         Assertions.assertThrows(IllegalArgumentException.class, () -> robot.move(Direction.EAST, -1));
@@ -29,8 +35,6 @@ public class RobotTest {
 
     @Test
     public void movingNorth() {
-        final var robot = new Robot();
-
         final var newPosition = robot.move(Direction.NORTH, 1);
 
         assertThat(newPosition).isEqualTo(new Coordinate(0, 1));
@@ -38,8 +42,6 @@ public class RobotTest {
 
     @Test
     public void movingEast() {
-        final var robot = new Robot();
-
         final var newPosition = robot.move(Direction.EAST, 1);
 
         assertThat(newPosition).isEqualTo(new Coordinate(1, 0));
@@ -47,8 +49,6 @@ public class RobotTest {
 
     @Test
     public void movingSouth() {
-        final var robot = new Robot();
-
         final var newPosition = robot.move(Direction.SOUTH, 1);
 
         assertThat(newPosition).isEqualTo(new Coordinate(0, -1));
@@ -56,8 +56,6 @@ public class RobotTest {
 
     @Test
     public void movingWest() {
-        final var robot = new Robot();
-
         final var newPosition = robot.move(Direction.WEST, 1);
 
         assertThat(newPosition).isEqualTo(new Coordinate(-1, 0));
@@ -65,8 +63,6 @@ public class RobotTest {
 
     @Test
     public void honorsStepSize() {
-        final var robot = new Robot();
-
         final var newPosition = robot.move(Direction.NORTH, 3);
 
         assertThat(newPosition).isEqualTo(new Coordinate(0, 3));
