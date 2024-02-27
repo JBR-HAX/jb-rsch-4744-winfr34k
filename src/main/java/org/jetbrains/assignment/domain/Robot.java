@@ -7,55 +7,55 @@ import java.util.List;
 
 public class Robot {
 
-    private Coordinate position;
+    private Location location;
 
     public Robot() {
-        this(new Coordinate(0, 0));
+        this(new Location(0, 0));
     }
 
-    public Robot(Coordinate coordinate) {
-        this.position = coordinate;
+    public Robot(Location location) {
+        this.location = location;
     }
 
-    public Coordinate getPosition() {
-        return position;
+    public Location getLocation() {
+        return location;
     }
 
-    public Coordinate move(final Direction direction, final int steps) {
+    public Location move(final Direction direction, final int steps) {
         Assert.isTrue(steps > 0, "Steps need to be positive!");
 
         final var newPosition = switch (direction) {
-            case NORTH -> new Coordinate(position.x(), position.y() + steps);
-            case EAST -> new Coordinate(position.x() + steps, position.y());
-            case SOUTH -> new Coordinate(position.x(), position.y() - steps);
-            case WEST -> new Coordinate(position.x() - steps, position.y());
+            case NORTH -> new Location(location.x(), location.y() + steps);
+            case EAST -> new Location(location.x() + steps, location.y());
+            case SOUTH -> new Location(location.x(), location.y() - steps);
+            case WEST -> new Location(location.x() - steps, location.y());
         };
-        this.position = newPosition;
+        this.location = newPosition;
 
         return newPosition;
     }
 
-    public List<Movement> navigateTo(final Coordinate coordinate) {
-        final var differenceX = coordinate.x() - position.x();
-        final var differenceY = coordinate.y() - position.y();
+    public List<Move> navigateTo(final Location location) {
+        final var differenceX = location.x() - this.location.x();
+        final var differenceY = location.y() - this.location.y();
 
-        var movements = new ArrayList<Movement>();
+        var movements = new ArrayList<Move>();
 
         if (differenceX > 0) {
-            position = coordinate;
-            movements.add(new Movement(Direction.EAST, differenceX));
+            this.location = location;
+            movements.add(new Move(Direction.EAST, differenceX));
         }
         if (differenceX < 0) {
-            position = coordinate;
-            movements.add(new Movement(Direction.WEST, Math.abs(differenceX)));
+            this.location = location;
+            movements.add(new Move(Direction.WEST, Math.abs(differenceX)));
         }
         if (differenceY > 0) {
-            position = coordinate;
-            movements.add(new Movement(Direction.NORTH, differenceY));
+            this.location = location;
+            movements.add(new Move(Direction.NORTH, differenceY));
         }
         if (differenceY < 0) {
-            position = coordinate;
-            movements.add(new Movement(Direction.SOUTH, Math.abs(differenceY)));
+            this.location = location;
+            movements.add(new Move(Direction.SOUTH, Math.abs(differenceY)));
         }
 
         return movements;

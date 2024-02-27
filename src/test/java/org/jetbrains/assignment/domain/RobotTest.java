@@ -13,17 +13,17 @@ public class RobotTest {
 
     @Test
     public void defaultInitialPosition() {
-        final var currentPosition = robot.getPosition();
+        final var currentPosition = robot.getLocation();
 
-        assertThat(currentPosition).isEqualTo(new Coordinate(0, 0));
+        assertThat(currentPosition).isEqualTo(new Location(0, 0));
     }
 
     @Test
     public void customInitialPosition() {
-        final var robot = new Robot(new Coordinate(-1, 0));
-        final var currentPosition = robot.getPosition();
+        final var robot = new Robot(new Location(-1, 0));
+        final var currentPosition = robot.getLocation();
 
-        assertThat(currentPosition).isEqualTo(new Coordinate(-1, 0));
+        assertThat(currentPosition).isEqualTo(new Location(-1, 0));
     }
 
     @Test
@@ -39,62 +39,62 @@ public class RobotTest {
     public void movingNorth() {
         final var newPosition = robot.move(Direction.NORTH, 1);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(0, 1));
+        assertThat(newPosition).isEqualTo(new Location(0, 1));
     }
 
     @Test
     public void movingEast() {
         final var newPosition = robot.move(Direction.EAST, 1);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(1, 0));
+        assertThat(newPosition).isEqualTo(new Location(1, 0));
     }
 
     @Test
     public void movingSouth() {
         final var newPosition = robot.move(Direction.SOUTH, 1);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(0, -1));
+        assertThat(newPosition).isEqualTo(new Location(0, -1));
     }
 
     @Test
     public void movingWest() {
         final var newPosition = robot.move(Direction.WEST, 1);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(-1, 0));
+        assertThat(newPosition).isEqualTo(new Location(-1, 0));
     }
 
     @Test
     public void honorsStepSize() {
         final var newPosition = robot.move(Direction.NORTH, 3);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(0, 3));
+        assertThat(newPosition).isEqualTo(new Location(0, 3));
     }
 
     @Test
-    public void navigationWithoutMovementsResultsInEmptyList() {
-        final var movement = robot.navigateTo(new Coordinate(0, 0));
+    public void navigationWithoutMovesResultsInEmptyList() {
+        final var movement = robot.navigateTo(new Location(0, 0));
 
         assertThat(movement).isEmpty();
     }
 
     @Test
-    public void navigatingToACoordinateWithSingleAxisPositiveChangeGivesTheCorrectStep() {
-        final var movement = robot.navigateTo(new Coordinate(1, 0));
+    public void navigatingToALocationWithSingleAxisPositiveChangeGivesTheCorrectStep() {
+        final var movement = robot.navigateTo(new Location(1, 0));
 
-        assertThat(movement).singleElement().isEqualTo(new Movement(Direction.EAST, 1));
+        assertThat(movement).singleElement().isEqualTo(new Move(Direction.EAST, 1));
     }
 
     @Test
-    public void navigatingToACoordinateWithSingleAxisNegativeChangeGivesTheCorrectStep() {
-        final var movement = robot.navigateTo(new Coordinate(-3, 0));
+    public void navigatingToALocationWithSingleAxisNegativeChangeGivesTheCorrectStep() {
+        final var movement = robot.navigateTo(new Location(-3, 0));
 
-        assertThat(movement).singleElement().isEqualTo(new Movement(Direction.WEST, 3));
+        assertThat(movement).singleElement().isEqualTo(new Move(Direction.WEST, 3));
     }
 
     @Test
-    public void navigatingToACoordinateWithMultiAxisChangesGivesCorrectSteps() {
-        final var movement = robot.navigateTo(new Coordinate(1, 1));
+    public void navigatingToALocationWithMultiAxisChangesGivesCorrectSteps() {
+        final var movement = robot.navigateTo(new Location(1, 1));
 
-        assertThat(movement).isEqualTo(List.of(new Movement(Direction.EAST, 1), new Movement(Direction.NORTH, 1)));
+        assertThat(movement).isEqualTo(List.of(new Move(Direction.EAST, 1), new Move(Direction.NORTH, 1)));
     }
 }

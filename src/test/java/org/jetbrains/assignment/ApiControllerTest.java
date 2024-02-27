@@ -22,7 +22,7 @@ public class ApiControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void postingMovementsReturnsCorrectLocations() throws Exception {
+    public void postingMovesReturnsCorrectLocations() throws Exception {
         mockMvc.perform(post("/locations")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -34,7 +34,7 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void postingLocationsReturnsCorrectMovements() throws Exception {
+    public void postingLocationsReturnsCorrectMoves() throws Exception {
         mockMvc.perform(post("/moves")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -46,7 +46,7 @@ public class ApiControllerTest {
     }
 
     @Test
-    public void locationsAndMovementsAreSymmetrical() throws Exception {
+    public void locationsAndMoveAreSymmetrical() throws Exception {
         mockMvc.perform(post("/moves")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""

@@ -2,8 +2,8 @@ package org.jetbrains.assignment;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.jetbrains.assignment.domain.Coordinate;
-import org.jetbrains.assignment.domain.Movement;
+import org.jetbrains.assignment.domain.Location;
+import org.jetbrains.assignment.domain.Move;
 import org.jetbrains.assignment.domain.Robot;
 import org.jetbrains.assignment.entity.ApiTrace;
 import org.jetbrains.assignment.repository.ApiTraceRepository;
@@ -29,15 +29,15 @@ public class ApiController {
     }
 
     @PostMapping("/locations")
-    public List<Coordinate> locations(@RequestBody final List<Movement> movements) throws JsonProcessingException {
+    public List<Location> locations(@RequestBody final List<Move> moves) throws JsonProcessingException {
         final var robot = new Robot();
-        final var currentPosition = List.of(robot.getPosition());
-        final var trace = movements.stream().map(it -> robot.move(it.direction(), it.steps())).toList();
+        final var currentPosition = List.of(robot.getLocation());
+        final var trace = moves.stream().map(it -> robot.move(it.direction(), it.steps())).toList();
         final var locations =  Stream.of(currentPosition, trace).flatMap(Collection::stream).toList();
 
         // FIXME: This could be an advice.
         final var type = ApiTrace.RequestType.LOCATIONS;
-        final var serializedRequest = objectMapper.writeValueAsString(movements);
+        final var serializedRequest = objectMapper.writeValueAsString(moves);
         final var serializeResponse = objectMapper.writeValueAsString(locations);
         apiTraceRepository.save(new ApiTrace(type, serializedRequest, serializeResponse));
 
@@ -45,12 +45,12 @@ public class ApiController {
     }
 
     @PostMapping("/moves")
-    public List<Movement> moves(@RequestBody final List<Coordinate> coordinates) throws JsonProcessingException {
-        Assert.isTrue(coordinates.size() > 1, "Needs at least two coordinates!");
-        final var iterator = coordinates.iterator();
+    public List<Move> moves(@RequestBody final List<Location> locations) throws JsonProcessingException {
+        Assert.isTrue(locations.size() > 1, "Needs at least two coordinates!");
+        final var iterator = locations.iterator();
         final var robot = new Robot(iterator.next());
 
-        final var movements = new ArrayList<Movement>();
+        final var movements = new ArrayList<Move>();
         while (iterator.hasNext()) {
             final var coordinate = iterator.next();
             final var movement = robot.navigateTo(coordinate);
@@ -61,7 +61,7 @@ public class ApiController {
 
         // FIXME: This could be an advice.
         final var type = ApiTrace.RequestType.MOVES;
-        final var serializedRequest = objectMapper.writeValueAsString(coordinates);
+        final var serializedRequest = objectMapper.writeValueAsString(locations);
         final var serializeResponse = objectMapper.writeValueAsString(movements);
         apiTraceRepository.save(new ApiTrace(type, serializedRequest, serializeResponse));
 

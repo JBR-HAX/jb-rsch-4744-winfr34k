@@ -8,4 +8,4 @@ package org.jetbrains.assignment.domain;
  * @param x The horizontal axis. Positive values go East, negative values go West.
  * @param y The vertical axis. Positive values go North, negative values go South.
  */
-public record Coordinate(int x, int y) { }
+public record Location(int x, int y) { }
