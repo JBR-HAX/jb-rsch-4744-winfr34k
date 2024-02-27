@@ -13,14 +13,9 @@ import java.util.stream.Stream;
 @RestController
 public class ApiController {
 
-    private final Robot robot;
-
-    public ApiController(Robot robot) {
-        this.robot = robot;
-    }
-
     @PostMapping("/locations")
     public List<Coordinate> locations(@RequestBody final List<Movement> movements) {
+        final var robot = new Robot();
         final var currentPosition = List.of(robot.getPosition());
         final var trace = movements.stream().map(it -> robot.move(it.direction(), it.steps())).toList();
         return Stream.of(currentPosition, trace).flatMap(Collection::stream).toList();
