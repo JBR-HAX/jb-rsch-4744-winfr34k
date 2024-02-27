@@ -1,4 +1,4 @@
-package org.jetbrains.assignment;
+package org.jetbrains.assignment.domain;
 
 /**
  * Walking direction of a robot.

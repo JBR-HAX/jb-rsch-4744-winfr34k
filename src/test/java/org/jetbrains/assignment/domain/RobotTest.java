@@ -1,4 +1,4 @@
-package org.jetbrains.assignment;
+package org.jetbrains.assignment.domain;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

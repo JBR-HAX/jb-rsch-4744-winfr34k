@@ -1,4 +1,4 @@
-package org.jetbrains.assignment;
+package org.jetbrains.assignment.domain;
 
 /**
  * Represents the coordinate in the system present in README.md.
