@@ -20,6 +20,7 @@ public class RobotTest {
     public void cannotMoveNegativeSteps() {
         final var robot = new Robot();
 
+        Assertions.assertThrows(IllegalArgumentException.class, () -> robot.move(Direction.NORTH, 0));
         Assertions.assertThrows(IllegalArgumentException.class, () -> robot.move(Direction.NORTH, -1));
         Assertions.assertThrows(IllegalArgumentException.class, () -> robot.move(Direction.EAST, -1));
         Assertions.assertThrows(IllegalArgumentException.class, () -> robot.move(Direction.SOUTH, -1));
