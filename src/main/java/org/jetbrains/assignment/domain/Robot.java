@@ -2,6 +2,9 @@ package org.jetbrains.assignment.domain;
 
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Robot {
 
     private Coordinate position;
@@ -30,5 +33,31 @@ public class Robot {
         this.position = newPosition;
 
         return newPosition;
+    }
+
+    public List<Movement> navigateTo(final Coordinate coordinate) {
+        final var differenceX = coordinate.x() - position.x();
+        final var differenceY = coordinate.y() - position.y();
+
+        var movements = new ArrayList<Movement>();
+
+        if (differenceX > 0) {
+            position = coordinate;
+            movements.add(new Movement(Direction.EAST, differenceX));
+        }
+        if (differenceX < 0) {
+            position = coordinate;
+            movements.add(new Movement(Direction.WEST, Math.abs(differenceX)));
+        }
+        if (differenceY > 0) {
+            position = coordinate;
+            movements.add(new Movement(Direction.NORTH, differenceY));
+        }
+        if (differenceY < 0) {
+            position = coordinate;
+            movements.add(new Movement(Direction.SOUTH, Math.abs(differenceY)));
+        }
+
+        return movements;
     }
 }
