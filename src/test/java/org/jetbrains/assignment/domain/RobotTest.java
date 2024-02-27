@@ -32,7 +32,7 @@ public class RobotTest {
 
         final var newPosition = robot.move(Direction.NORTH, 1);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(1, 0));
+        assertThat(newPosition).isEqualTo(new Coordinate(0, 1));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class RobotTest {
 
         final var newPosition = robot.move(Direction.EAST, 1);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(0, 1));
+        assertThat(newPosition).isEqualTo(new Coordinate(1, 0));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class RobotTest {
 
         final var newPosition = robot.move(Direction.SOUTH, 1);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(-1, 0));
+        assertThat(newPosition).isEqualTo(new Coordinate(0, -1));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class RobotTest {
 
         final var newPosition = robot.move(Direction.WEST, 1);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(0, -1));
+        assertThat(newPosition).isEqualTo(new Coordinate(-1, 0));
     }
 
     @Test
@@ -68,6 +68,6 @@ public class RobotTest {
 
         final var newPosition = robot.move(Direction.NORTH, 3);
 
-        assertThat(newPosition).isEqualTo(new Coordinate(3, 0));
+        assertThat(newPosition).isEqualTo(new Coordinate(0, 3));
     }
 }

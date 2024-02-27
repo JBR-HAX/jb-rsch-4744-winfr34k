@@ -20,10 +20,10 @@ public class Robot {
         //        What about lock free data structures?
         synchronized(LOCK) {
             final var newPosition = switch (direction) {
-                case NORTH -> new Coordinate(position.x() + steps, position.y());
-                case EAST -> new Coordinate(position.x(), position.y() + steps);
-                case SOUTH -> new Coordinate(position.x() - steps, position.y());
-                case WEST -> new Coordinate(position.x(), position.y() - steps);
+                case NORTH -> new Coordinate(position.x(), position.y() + steps);
+                case EAST -> new Coordinate(position.x() + steps, position.y());
+                case SOUTH -> new Coordinate(position.x(), position.y() - steps);
+                case WEST -> new Coordinate(position.x() - steps, position.y());
             };
 
             this.position = newPosition;
