@@ -1,6 +1,4 @@
-package org.jetbrains.assignment;
-
-import org.jetbrains.assignment.domain.Direction;
+package org.jetbrains.assignment.domain;
 
 /**
  * Directions and step-size for the robot to move by.

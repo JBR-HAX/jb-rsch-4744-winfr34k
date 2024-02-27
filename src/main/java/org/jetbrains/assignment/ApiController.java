@@ -1,6 +1,7 @@
 package org.jetbrains.assignment;
 
 import org.jetbrains.assignment.domain.Coordinate;
+import org.jetbrains.assignment.domain.Movement;
 import org.jetbrains.assignment.domain.Robot;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
